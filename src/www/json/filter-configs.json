@@ -1,0 +1,193 @@
+{
+  "cr": [
+    {
+      "label": "CR 1/8",
+      "filterArgs": ["cr","1/8"]
+    },
+    {
+      "label": "CR 1/4",
+      "filterArgs": ["cr","1/4"]
+    },
+    {
+      "label": "CR 1/2",
+      "filterArgs": ["cr","1/2"]
+    },
+    {
+      "label": "CR 1",
+      "filterArgs": ["cr","1"]
+    },
+    {
+      "label": "CR 2",
+      "filterArgs": ["cr","2"]
+    },
+    {
+      "label": "CR 3",
+      "filterArgs": ["cr","3"]
+    },
+    {
+      "label": "CR 4",
+      "filterArgs": ["cr","4"]
+    },
+    {
+      "label": "CR 5",
+      "filterArgs": ["cr","5"]
+    },
+    {
+      "label": "CR 6",
+      "filterArgs": ["cr","6"]
+    },
+    {
+      "label": "CR 7",
+      "filterArgs": ["cr","7"]
+    },
+    {
+      "label": "CR 8",
+      "filterArgs": ["cr","8"]
+    },
+    {
+      "label": "CR 9",
+      "filterArgs": ["cr","9"]
+    },
+    {
+      "label": "CR 10",
+      "filterArgs": ["cr","10"]
+    },
+    {
+      "label": "CR 11",
+      "filterArgs": ["cr","11"]
+    },
+    {
+      "label": "CR 12",
+      "filterArgs": ["cr","12"]
+    },
+    {
+      "label": "CR 13",
+      "filterArgs": ["cr","13"]
+    },
+    {
+      "label": "CR 14",
+      "filterArgs": ["cr","14"]
+    },
+    {
+      "label": "CR 15",
+      "filterArgs": ["cr","15"]
+    },
+    {
+      "label": "CR 16",
+      "filterArgs": ["cr","16"]
+    },
+    {
+      "label": "CR 17",
+      "filterArgs": ["cr","17"]
+    },
+    {
+      "label": "CR 18",
+      "filterArgs": ["cr","18"]
+    },
+    {
+      "label": "CR 19",
+      "filterArgs": ["cr","19"]
+    },
+    {
+      "label": "CR 20",
+      "filterArgs": ["cr","20"]
+    }
+  ],
+  "type": [
+    {
+      "label": "Aberration",
+      "filterArgs": ["type","aberration"]
+    },
+    {
+      "label": "Beast",
+      "filterArgs": ["type","beast"]
+    },
+    {
+      "label": "Celestial",
+      "filterArgs": ["type","celestial"]
+    },
+    {
+      "label": "Construct",
+      "filterArgs": ["type","construct"]
+    },
+    {
+      "label": "Dragon",
+      "filterArgs": ["type","dragon"]
+    },
+    {
+      "label": "Elemental",
+      "filterArgs": ["type","elemental"]
+    },
+    {
+      "label": "Fey",
+      "filterArgs": ["type","fey"]
+    },
+    {
+      "label": "Fiend",
+      "filterArgs": ["type","fiend"]
+    },
+    {
+      "label": "Giant",
+      "filterArgs": ["type","giant"]
+    },
+    {
+      "label": "Humanoid",
+      "filterArgs": ["type","humanoid"]
+    },
+    {
+      "label": "Monstrosity",
+      "filterArgs": ["type","monstrosity"]
+    },
+    {
+      "label": "Ooze",
+      "filterArgs": ["type","ooze"]
+    },
+    {
+      "label": "Plant",
+      "filterArgs": ["type","plant"]
+    },
+    {
+      "label": "Undead",
+      "filterArgs": ["type","undead"]
+    }
+  ],
+  "source": [
+    {
+      "label": "Monster manual",
+      "filterArgs": ["source","monster manual"]
+    },
+    {
+      "label": "Tome of Beasts",
+      "filterArgs": ["source","tome of Beasts"]
+    },
+    {
+      "label": "Elemental Evil",
+      "filterArgs": ["source","elemental evil"]
+    },
+    {
+      "label": "Volo's Guide",
+      "filterArgs": ["source","Volo's Guide"]
+    },
+    {
+      "label": "Tyranny of Dragons",
+      "filterArgs": ["source","tyranny of dragons"]
+    },
+    {
+      "label": "Storm Kings Thunder",
+      "filterArgs": ["source","storm kings thunder"]
+    },
+    {
+      "label": "Curse of Strahd",
+      "filterArgs": ["source","curse of strahd"]
+    },
+    {
+      "label": "Out of the Abyss",
+      "filterArgs": ["source","out of the abyss"]
+    },
+    {
+      "label": "Lost Mine of Phandelver",
+      "filterArgs": ["source","lost mine of phandelver"]
+    }
+  ]
+
+}
