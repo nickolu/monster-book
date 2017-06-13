@@ -136,12 +136,12 @@ class MonsterBook extends React.Component {
 
         activate('type', {
           filterArgs : [e.target.getAttribute('data-filter-prop'), e.target.getAttribute('data-filter-value')],
-          filterFunc : filter.by.value
+          filterFunc : filter.by.match
         });
 
         deactivate('type', {
           filterArgs : [activeFilterProp, activeFilterValue],
-          filterFunc : filter.by.value,
+          filterFunc : filter.by.match,
           exclude : true
         });
       }
@@ -164,7 +164,7 @@ class MonsterBook extends React.Component {
 
         deactivate('type', {
           filterArgs : [activeFilterProp, activeFilterValue],
-          filterFunc : filter.by.value,
+          filterFunc : filter.by.match,
           exclude : true
         });
       }
