@@ -256,7 +256,7 @@ class MonsterBook extends React.Component {
     }
 
     var cards = <div className="row card-container">
-      {cardsArr.map(creature => <div className="card card-inner col-xs-12 col-sm-6 col-md-4" key={creature.name}>
+      {cardsArr.map(creature => <div className="card card-inner col-xs-12 col-sm-6" key={creature.name}>
         <div className={cardId(creature)}>
           <h2 className="card_name">{creature.name}</h2>
           <span className="open-button"><ShowHideButton target={"."+cardId(creature)+" .card-content"} showText="+" hideText="-" /></span>
