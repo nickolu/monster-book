@@ -215,9 +215,25 @@ class MonsterBook extends React.Component {
             </div>
   }
 
+  saveCard(card) {
+    let savedCards = this.state.savedCards;
+    savedCards.push(card);
+
+    this.setState(Object.assign({}, this.state, {
+      savedCards : savedCards,
+    }));
+  }
+
+  clearSavedCards() {
+    this.setState(Object.assign({}, this.state, {
+      savedCards : [],
+    }));
+  }
+
   renderCards(cardsData) {
     var i = 0;
     var cardsArr = cardsData || [];
+    const _this = this;
 
     function cardId(card) {
       return card.name.toLowerCase()
@@ -257,7 +273,7 @@ class MonsterBook extends React.Component {
 
     var cards = <div className="row card-container">
       {cardsArr.map(creature => <div className="card card-inner col-xs-12 col-sm-6 col-md-4" key={creature.name}>
-        <div className={cardId(creature)}>
+        <div className={cardId(creature)}><div className="btn" onClick={_this.saveCard(creature)}>Save</div>
           <h2 className="card_name">{creature.name}</h2>
           <span className="open-button"><ShowHideButton target={"."+cardId(creature)+" .card-content"} showText="+" hideText="-" /></span>
           <span className="closed-button"><ShowHideButton target={"."+cardId(creature)+" .card-content"} showText="+" hideText="-" startClosed="true"/></span>
