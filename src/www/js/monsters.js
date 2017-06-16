@@ -64,7 +64,7 @@ class MonsterBook extends React.Component {
     }
 
     return  <div>
-              <h4>Level</h4>
+              <h4>CR</h4>
               <FilterButtonGroup cardData={cardData} buttonOptions={buttonOptions} filters={filterOptions.cr} />
             </div>
   }
@@ -127,11 +127,13 @@ class MonsterBook extends React.Component {
       return "btn type-filter-btn" + activeClass;
     }
 
+    function buttons() {
+
+    }
     var buttons = function() {
-      return <div className="row"><div className="col-xs-12">{filterOptions.type.map(function(button, index){
+      return filterOptions.type.map((button, index) => {
         return (
-          <div 
-            key={button.filterArgs[1]} 
+          <div key={button.filterArgs[1]} 
             className={getClassName(index)}
             onClick={update} 
             data-filter-prop={button.filterArgs[0]} 
@@ -141,14 +143,15 @@ class MonsterBook extends React.Component {
           
           </div>
         )
-      })}</div></div>;
+      });
     }
 
-    return  <div>
-              <h4>Type</h4>
-              {buttons()}
-              Show all: <div className="btn type-filter-btn" onClick={showAll} data-filter-prop="type"
-            data-filter-value="all">Show all types (slow)</div>
+    return  <div className="row">
+              <div className="col-xs-12">
+                {buttons()}
+                <div className="btn type-filter-btn" onClick={showAll} data-filter-prop="type"
+              data-filter-value="all">Show all types (slow)</div>
+              </div>
             </div>
   }
 
@@ -208,16 +211,25 @@ class MonsterBook extends React.Component {
     }
 
     function saveCard(e) {
-      const cardObject = utilities.getObjectByName(cardsData,e.target.getAttribute('data-card-name'))
+      const cardObject = utilities.getObjectByName(cardsData,e.target.getAttribute('data-card-name'));
+      e.target.className += " saved"
+
       saveFunc(cardObject);
     }
 
-    var cards = <div className="row card-container">
-      {cardsArr.map(creature => <div className="card card-inner col-xs-12 col-sm-6 col-md-4" key={creature.name}>
-        <div className={cardId(creature)}>
-          <h2 className="card_name">{creature.name} <div className="btn save-btn" data-card-name={creature.name} onClick={saveCard}>Save</div></h2>
-          <span className="open-button"><ShowHideButton target={"."+cardId(creature)+" .card-content"} showText="+" hideText="-" /></span>
-          <span className="closed-button"><ShowHideButton target={"."+cardId(creature)+" .card-content"} showText="+" hideText="-" startClosed="true"/></span>
+    function searchString(creatureName) {
+
+      return "https://www.google.com/search?safe=active&tbm=isch&q="+creatureName.toLowerCase().replace(/\s/g,'+');;
+    }
+
+    let cards = <div className="row card-container">
+      {cardsArr.map((creature) => {
+        const index = Math.floor(Math.random() * 1001)
+        return <div className="card card-inner col-xs-12 col-sm-6 col-md-4" key={creature.name}>
+        <div className={cardId(creature)+index}>
+          <h2 className="card_name">{creature.name} [<a href={searchString(creature.name+creature.source)} target="_blank">IMG</a>] <div className="btn save-btn" data-card-name={creature.name} onClick={saveCard}>Save</div></h2>
+          <span className="open-button"><ShowHideButton target={"."+cardId(creature)+index+" .card-content"} showText="+" hideText="-" /></span>
+          <span className="closed-button"><ShowHideButton target={"."+cardId(creature)+index+" .card-content"} showText="+" hideText="-" startClosed="true" /></span>
           <p>{creature.size} {creature.type}, {creature.alignment}</p>
           <div className="row card-content card">
             <div className="col-xs-12">
@@ -260,7 +272,7 @@ class MonsterBook extends React.Component {
           </div>
         </div>
       
-      </div>)}
+      </div>})}
     </div>;
 
 
