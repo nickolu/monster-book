@@ -1,6 +1,10 @@
 {
   "cr": [
     {
+      "label": "0",
+      "filterArgs": ["cr","0"]
+    },
+    {
       "label": "1/8",
       "filterArgs": ["cr","1/8"]
     },
