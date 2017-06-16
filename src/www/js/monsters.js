@@ -214,8 +214,8 @@ class MonsterBook extends React.Component {
 
     var cards = <div className="row card-container">
       {cardsArr.map(creature => <div className="card card-inner col-xs-12 col-sm-6 col-md-4" key={creature.name}>
-        <div className={cardId(creature)}><div className="btn" data-card-name={creature.name} onClick={saveCard}>Save</div>
-          <h2 className="card_name">{creature.name}</h2>
+        <div className={cardId(creature)}>
+          <h2 className="card_name">{creature.name} <div className="btn save-btn" data-card-name={creature.name} onClick={saveCard}>Save</div></h2>
           <span className="open-button"><ShowHideButton target={"."+cardId(creature)+" .card-content"} showText="+" hideText="-" /></span>
           <span className="closed-button"><ShowHideButton target={"."+cardId(creature)+" .card-content"} showText="+" hideText="-" startClosed="true"/></span>
           <p>{creature.size} {creature.type}, {creature.alignment}</p>
@@ -276,7 +276,13 @@ class MonsterBook extends React.Component {
    */
   render() {
     const filter = new Filter(cardData);
-    const startData = filter.by.value(['type','aberration'],cardData);
+    const startData = filter.by.match(['type','aberration'],cardData);
+    const startFilter = {
+      'type' : {
+        'filterArgs' : [['type','aberration']],
+        'filterFunc' : filter.by.match
+      }
+    }
 
     function uniqueData () {
       let uniqueData = [];
@@ -336,6 +342,7 @@ class MonsterBook extends React.Component {
                 label="Monsters"
                 cardData={cardData}
                 startData={startData}
+                startFilter={startFilter}
                 searchFilter={this.searchFilter}
                 navigation={this.typeFilters}
                 filters={[this.crFilters, this.sourceFilters]}
