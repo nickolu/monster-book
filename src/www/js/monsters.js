@@ -22,6 +22,7 @@ class MonsterBook extends React.Component {
     super(props);
 
     this.searchFilter = this.searchFilter.bind(this);
+    this.renderCards = this.renderCards.bind(this);
   }
   
   searchFilter(activate,deactivate) {
@@ -70,55 +71,6 @@ class MonsterBook extends React.Component {
   /**
    * [typeFilters description]
    * @param  {[type]} activate 
-   *         
-   startFilteringBy(filterName,filterObject) {
-    let filters = this.state.filters;
-    filters[filterName] = filters[filterName] || {};
-    filters[filterName].filterArgs = filters[filterName].filterArgs || [];
-    
-    // add the filter args and update the filter function 
-    filters[filterName].filterArgs.push(filterObject.filterArgs);
-    filters[filterName].filterFunc = filterObject.filterFunc;
-
-    // TODO: workaround for search filter
-    if (filterName === 'search') {
-
-      filters[filterName].filterArgs = [filterObject.filterArgs];
-    }
-
-    // save 
-    this.setState({
-      cards : [],
-      filters : filters[filterName]
-    });
-
-    // update
-    this.executeFilters(this.state.filters);
-  }
-
-  stopFilteringBy(filterName,filterObject) {
-    let filters = this.state.filters;
-    let i = 0;
-
-    filters[filterName] = filters[filterName] || {};
-    filters[filterName].filterArgs = filters[filterName].filterArgs || [];
-    
-    // remove the filter args 
-    filters[filterName].filterArgs.forEach((filterArg) => {
-      if (filterArg === filterObject.filterArgs) {
-        filters[filterName].filterArgs.splice(i, 1);
-      }
-      i++;
-    });
-    
-    // save 
-    this.setState(Object.assign({}, this.state, {
-      filters : filters[filterName]
-    }));
-
-    // update
-    this.executeFilters(this.state.filters);
-  }
    * @param  {[type]} deactivate [description]
    * @return {[type]}            [description]
    */
@@ -215,25 +167,9 @@ class MonsterBook extends React.Component {
             </div>
   }
 
-  saveCard(card) {
-    let savedCards = this.state.savedCards;
-    savedCards.push(card);
-
-    this.setState(Object.assign({}, this.state, {
-      savedCards : savedCards,
-    }));
-  }
-
-  clearSavedCards() {
-    this.setState(Object.assign({}, this.state, {
-      savedCards : [],
-    }));
-  }
-
-  renderCards(cardsData) {
+  renderCards(cardsData, saveFunc) {
     var i = 0;
     var cardsArr = cardsData || [];
-    const _this = this;
 
     function cardId(card) {
       return card.name.toLowerCase()
@@ -271,9 +207,14 @@ class MonsterBook extends React.Component {
       }
     }
 
+    function saveCard(e) {
+      const cardObject = utilities.getObjectByName(cardsData,e.target.getAttribute('data-card-name'))
+      saveFunc(cardObject);
+    }
+
     var cards = <div className="row card-container">
       {cardsArr.map(creature => <div className="card card-inner col-xs-12 col-sm-6 col-md-4" key={creature.name}>
-        <div className={cardId(creature)}><div className="btn" onClick={_this.saveCard(creature)}>Save</div>
+        <div className={cardId(creature)}><div className="btn" data-card-name={creature.name} onClick={saveCard}>Save</div>
           <h2 className="card_name">{creature.name}</h2>
           <span className="open-button"><ShowHideButton target={"."+cardId(creature)+" .card-content"} showText="+" hideText="-" /></span>
           <span className="closed-button"><ShowHideButton target={"."+cardId(creature)+" .card-content"} showText="+" hideText="-" startClosed="true"/></span>
