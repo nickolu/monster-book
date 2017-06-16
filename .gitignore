@@ -1,2 +1,9 @@
-node_modules
 dist
+
+node_modules/*
+!node_modules/card-filters
+
+node_modules/card-filters/node_modules/*
+!node_modules/card-filters/node_modules/simple-react-filters/
+
+node_modules/card-filters/node_modules/simple-react-filters/node_modules/*

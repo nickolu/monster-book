@@ -22,6 +22,7 @@ class MonsterBook extends React.Component {
     super(props);
 
     this.searchFilter = this.searchFilter.bind(this);
+    this.renderCards = this.renderCards.bind(this);
   }
   
   searchFilter(activate,deactivate) {
@@ -63,62 +64,13 @@ class MonsterBook extends React.Component {
     }
 
     return  <div>
-              <h4>Level</h4>
+              <h4>CR</h4>
               <FilterButtonGroup cardData={cardData} buttonOptions={buttonOptions} filters={filterOptions.cr} />
             </div>
   }
   /**
    * [typeFilters description]
    * @param  {[type]} activate 
-   *         
-   startFilteringBy(filterName,filterObject) {
-    let filters = this.state.filters;
-    filters[filterName] = filters[filterName] || {};
-    filters[filterName].filterArgs = filters[filterName].filterArgs || [];
-    
-    // add the filter args and update the filter function 
-    filters[filterName].filterArgs.push(filterObject.filterArgs);
-    filters[filterName].filterFunc = filterObject.filterFunc;
-
-    // TODO: workaround for search filter
-    if (filterName === 'search') {
-
-      filters[filterName].filterArgs = [filterObject.filterArgs];
-    }
-
-    // save 
-    this.setState({
-      cards : [],
-      filters : filters[filterName]
-    });
-
-    // update
-    this.executeFilters(this.state.filters);
-  }
-
-  stopFilteringBy(filterName,filterObject) {
-    let filters = this.state.filters;
-    let i = 0;
-
-    filters[filterName] = filters[filterName] || {};
-    filters[filterName].filterArgs = filters[filterName].filterArgs || [];
-    
-    // remove the filter args 
-    filters[filterName].filterArgs.forEach((filterArg) => {
-      if (filterArg === filterObject.filterArgs) {
-        filters[filterName].filterArgs.splice(i, 1);
-      }
-      i++;
-    });
-    
-    // save 
-    this.setState(Object.assign({}, this.state, {
-      filters : filters[filterName]
-    }));
-
-    // update
-    this.executeFilters(this.state.filters);
-  }
    * @param  {[type]} deactivate [description]
    * @return {[type]}            [description]
    */
@@ -176,10 +128,9 @@ class MonsterBook extends React.Component {
     }
 
     var buttons = function() {
-      return <div className="row"><div className="col-xs-12">{filterOptions.type.map(function(button, index){
+      return filterOptions.type.map((button, index) => {
         return (
-          <div 
-            key={button.filterArgs[1]} 
+          <div key={button.filterArgs[1]} 
             className={getClassName(index)}
             onClick={update} 
             data-filter-prop={button.filterArgs[0]} 
@@ -189,14 +140,15 @@ class MonsterBook extends React.Component {
           
           </div>
         )
-      })}</div></div>;
+      });
     }
 
-    return  <div>
-              <h4>Type</h4>
-              {buttons()}
-              Show all: <div className="btn type-filter-btn" onClick={showAll} data-filter-prop="type"
-            data-filter-value="all">Show all types (slow)</div>
+    return  <div className="row">
+              <div className="col-xs-12">
+                {buttons()}
+                <div className="btn type-filter-btn" onClick={showAll} data-filter-prop="type"
+              data-filter-value="all">Show all types (slow)</div>
+              </div>
             </div>
   }
 
@@ -215,7 +167,7 @@ class MonsterBook extends React.Component {
             </div>
   }
 
-  renderCards(cardsData) {
+  renderCards(cardsData, saveFunc) {
     var i = 0;
     var cardsArr = cardsData || [];
 
@@ -255,12 +207,26 @@ class MonsterBook extends React.Component {
       }
     }
 
-    var cards = <div className="row card-container">
-      {cardsArr.map(creature => <div className="card card-inner col-xs-12 col-sm-6" key={creature.name}>
-        <div className={cardId(creature)}>
-          <h2 className="card_name">{creature.name}</h2>
-          <span className="open-button"><ShowHideButton target={"."+cardId(creature)+" .card-content"} showText="+" hideText="-" /></span>
-          <span className="closed-button"><ShowHideButton target={"."+cardId(creature)+" .card-content"} showText="+" hideText="-" startClosed="true"/></span>
+    function saveCard(e) {
+      const cardObject = utilities.getObjectByName(cardsData,e.target.getAttribute('data-card-name'));
+      e.target.className += " saved"
+
+      saveFunc(cardObject);
+    }
+
+    function searchString(creatureName) {
+
+      return "https://www.google.com/search?safe=active&tbm=isch&q="+creatureName.toLowerCase().replace(/\s/g,'+');;
+    }
+
+    let cards = <div className="row card-container">
+      {cardsArr.map((creature) => {
+        const index = Math.floor(Math.random() * 1001)
+        return <div className="card card-inner col-xs-12 col-sm-6 col-md-4" key={creature.name}>
+        <div className={cardId(creature)+index}>
+          <h2 className="card_name">{creature.name} [<a href={searchString(creature.name+"+"+creature.source)} target="_blank">IMG</a>] <div className="btn save-btn" data-card-name={creature.name} onClick={saveCard}>Save</div></h2>
+          <span className="open-button"><ShowHideButton target={"."+cardId(creature)+index+" .card-content"} showText="+" hideText="-" /></span>
+          <span className="closed-button"><ShowHideButton target={"."+cardId(creature)+index+" .card-content"} showText="+" hideText="-" startClosed="true" /></span>
           <p>{creature.size} {creature.type}, {creature.alignment}</p>
           <div className="row card-content card">
             <div className="col-xs-12">
@@ -303,7 +269,7 @@ class MonsterBook extends React.Component {
           </div>
         </div>
       
-      </div>)}
+      </div>})}
     </div>;
 
 
@@ -319,7 +285,13 @@ class MonsterBook extends React.Component {
    */
   render() {
     const filter = new Filter(cardData);
-    const startData = filter.by.value(['type','aberration'],cardData);
+    const startData = filter.by.match(['type','aberration'],cardData);
+    const startFilter = {
+      'type' : {
+        'filterArgs' : [['type','aberration']],
+        'filterFunc' : filter.by.match
+      }
+    }
 
     function uniqueData () {
       let uniqueData = [];
@@ -379,6 +351,7 @@ class MonsterBook extends React.Component {
                 label="Monsters"
                 cardData={cardData}
                 startData={startData}
+                startFilter={startFilter}
                 searchFilter={this.searchFilter}
                 navigation={this.typeFilters}
                 filters={[this.crFilters, this.sourceFilters]}
