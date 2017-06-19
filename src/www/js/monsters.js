@@ -219,6 +219,12 @@ class MonsterBook extends React.Component {
       return "https://www.google.com/search?safe=active&tbm=isch&q="+creatureName.toLowerCase().replace(/\s/g,'+');;
     }
 
+    function displayProperty(label, value) {
+      if (value) {
+        return <div><strong>{label}</strong> {value}</div>
+      }
+    }
+
     let cards = <div className="row card-container">
       {cardsArr.map((creature) => {
         const index = Math.floor(Math.random() * 1001)
@@ -254,12 +260,13 @@ class MonsterBook extends React.Component {
                 </tr></tbody>
               </table>
               <hr />
-              <div><strong>Vulnerabilities</strong> {creature.vulnerable}</div>
-              <div><strong>Damage Immunities</strong> {creature.immune}</div>
-              <div><strong>Condition Immunities</strong> {creature.conditionImmune}</div>
-              <div><strong>Senses</strong> {creature.senses}<br/> &nbsp;&nbsp;&nbsp;&nbsp;Perception {creature.passive}</div>
-              <div><strong>Languages</strong> {creature.languages}</div>
-              <div><strong>Challenge</strong> {creature.cr}</div>
+              {displayProperty("Vulnerabilities",creature.vulnerable)}
+              {displayProperty("Damage Immunities",creature.immune)}
+              {displayProperty("Condition Immunities",creature.conditionImmune)}
+              {displayProperty("Senses",creature.senses)}
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;Perception {creature.passive}</div>
+              {displayProperty("Languages",creature.languages)}
+              {displayProperty("Challenge",creature.cr)}
               <hr />
               {creatureSpecialAbilities(creature)}
               <h4>Actions</h4>
