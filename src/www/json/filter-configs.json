@@ -217,8 +217,8 @@
       "filterArgs": ["source","tyranny of dragons"]
     },
     {
-      "label": "Storm Kings Thunder",
-      "filterArgs": ["source","storm kings thunder"]
+      "label": "Storm King's Thunder",
+      "filterArgs": ["source","storm king's thunder"]
     },
     {
       "label": "Curse of Strahd",
@@ -231,6 +231,10 @@
     {
       "label": "Lost Mine of Phandelver",
       "filterArgs": ["source","lost mine of phandelver"]
+    },
+    {
+      "label": "Tales from the Yawning Portal",
+      "filterArgs": ["source","tales from the yawning portal"]
     }
   ]
 
