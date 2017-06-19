@@ -231,8 +231,8 @@ class MonsterBook extends React.Component {
           <div className="row card-content card">
             <div className="col-xs-12">
               <hr />
-              <div><strong>Armor class</strong> {creature.armor_class}</div>
-              <div><strong>Hit Points</strong> {creature.hit_points}</div>
+              <div><strong>Armor class</strong> {creature.ac}</div>
+              <div><strong>Hit Points</strong> {creature.hp}</div>
               <div><strong>Speed</strong> {creature.speed}</div>
               <hr />
               <table><tbody>
@@ -245,12 +245,12 @@ class MonsterBook extends React.Component {
                   <td>CHA</td>
                 </tr>
                 <tr>
-                  <td>{creature.strength} ({abilityScoreModifier(creature.strength)})</td>
-                  <td>{creature.dexterity} ({abilityScoreModifier(creature.dexterity)})</td>
-                  <td>{creature.constitution} ({abilityScoreModifier(creature.constitution)})</td>
-                  <td>{creature.intelligence} ({abilityScoreModifier(creature.intelligence)})</td>
-                  <td>{creature.wisdom} ({abilityScoreModifier(creature.wisdom)})</td>
-                  <td>{creature.charisma} ({abilityScoreModifier(creature.charisma)})</td>
+                  <td>{creature.str} ({abilityScoreModifier(creature.str)})</td>
+                  <td>{creature.dex} ({abilityScoreModifier(creature.dex)})</td>
+                  <td>{creature.con} ({abilityScoreModifier(creature.con)})</td>
+                  <td>{creature.int} ({abilityScoreModifier(creature.int)})</td>
+                  <td>{creature.wis} ({abilityScoreModifier(creature.wis)})</td>
+                  <td>{creature.cha} ({abilityScoreModifier(creature.cha)})</td>
                 </tr></tbody>
               </table>
               <hr />
@@ -345,6 +345,7 @@ class MonsterBook extends React.Component {
      })}</div>;
     }
 
+    
 
     return  <div className="container">
               <CardBook 
