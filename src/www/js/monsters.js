@@ -224,7 +224,7 @@ class MonsterBook extends React.Component {
         const index = Math.floor(Math.random() * 1001)
         return <div className="card card-inner col-xs-12 col-sm-6 col-md-4" key={creature.name}>
         <div className={cardId(creature)+index}>
-          <h2 className="card_name">{creature.name} [<a href={searchString(creature.name+"+"+creature.source)} target="_blank">IMG</a>] <div className="btn save-btn" data-card-name={creature.name} onClick={saveCard}>Save</div></h2>
+          <h2 className="card_name">{creature.name} [<a href={searchString(creature.name)} target="_blank">IMG</a>] <div className="btn save-btn" data-card-name={creature.name} onClick={saveCard}>Save</div></h2>
           <span className="open-button"><ShowHideButton target={"."+cardId(creature)+index+" .card-content"} showText="+" hideText="-" /></span>
           <span className="closed-button"><ShowHideButton target={"."+cardId(creature)+index+" .card-content"} showText="+" hideText="-" startClosed="true" /></span>
           <p>{creature.size} {creature.type}, {creature.alignment}</p>
