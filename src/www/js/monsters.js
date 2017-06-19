@@ -264,7 +264,7 @@ class MonsterBook extends React.Component {
               {creatureSpecialAbilities(creature)}
               <h4>Actions</h4>
               {creatureActions(creature)}
-              <p>{creature.source}</p>
+              <p><br /><em>{creature.source}</em></p>
             </div>  
           </div>
         </div>
