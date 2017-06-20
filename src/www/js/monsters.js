@@ -219,12 +219,18 @@ class MonsterBook extends React.Component {
       return "https://www.google.com/search?safe=active&tbm=isch&q="+creatureName.toLowerCase().replace(/\s/g,'+');;
     }
 
+    function displayProperty(label, value) {
+      if (value) {
+        return <div><strong>{label}</strong> {value}</div>
+      }
+    }
+
     let cards = <div className="row card-container">
       {cardsArr.map((creature) => {
         const index = Math.floor(Math.random() * 1001)
         return <div className="card card-inner col-xs-12 col-sm-6 col-md-4" key={creature.name}>
         <div className={cardId(creature)+index}>
-          <h2 className="card_name">{creature.name} [<a href={searchString(creature.name+"+"+creature.source)} target="_blank">IMG</a>] <div className="btn save-btn" data-card-name={creature.name} onClick={saveCard}>Save</div></h2>
+          <h2 className="card_name">{creature.name} [<a href={searchString(creature.name)} target="_blank">IMG</a>] <div className="btn save-btn" data-card-name={creature.name} onClick={saveCard}>Save</div></h2>
           <span className="open-button"><ShowHideButton target={"."+cardId(creature)+index+" .card-content"} showText="+" hideText="-" /></span>
           <span className="closed-button"><ShowHideButton target={"."+cardId(creature)+index+" .card-content"} showText="+" hideText="-" startClosed="true" /></span>
           <p>{creature.size} {creature.type}, {creature.alignment}</p>
@@ -254,17 +260,18 @@ class MonsterBook extends React.Component {
                 </tr></tbody>
               </table>
               <hr />
-              <div><strong>Vulnerabilities</strong> {creature.vulnerable}</div>
-              <div><strong>Damage Immunities</strong> {creature.immune}</div>
-              <div><strong>Condition Immunities</strong> {creature.conditionImmune}</div>
-              <div><strong>Senses</strong> {creature.senses}<br/> &nbsp;&nbsp;&nbsp;&nbsp;Perception {creature.passive}</div>
-              <div><strong>Languages</strong> {creature.languages}</div>
-              <div><strong>Challenge</strong> {creature.cr}</div>
+              {displayProperty("Vulnerabilities",creature.vulnerable)}
+              {displayProperty("Damage Immunities",creature.immune)}
+              {displayProperty("Condition Immunities",creature.conditionImmune)}
+              {displayProperty("Senses",creature.senses)}
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;Perception {creature.passive}</div>
+              {displayProperty("Languages",creature.languages)}
+              {displayProperty("Challenge",creature.cr)}
               <hr />
               {creatureSpecialAbilities(creature)}
               <h4>Actions</h4>
               {creatureActions(creature)}
-              <p>{creature.source}</p>
+              <p><br /><em>{creature.source}</em></p>
             </div>  
           </div>
         </div>
